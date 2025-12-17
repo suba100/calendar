@@ -69,3 +69,11 @@ button {
     border: none;
     cursor: pointer;
 }
+
+.dates div.has-note {
+    background: #ffd966;
+    font-weight: bold;
+    border: 1px solid #f0b400;
+}
+
+}
