@@ -1,6 +1,43 @@
 let current = new Date();
 
 function renderCalendar() {
+    function renderCalendar() {
+    const monthYear = document.getElementById("monthYear");
+    const dates = document.getElementById("dates");
+
+    const year = current.getFullYear();
+    const month = current.getMonth();
+
+    monthYear.textContent =
+        current.toLocaleString("default", { month: "long" }) + " " + year;
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    dates.innerHTML = "";
+
+    // Blank cells
+    for (let i = 0; i < firstDay; i++) {
+        dates.innerHTML += "<div></div>";
+    }
+
+    // Dates
+    for (let day = 1; day <= lastDate; day++) {
+        const div = document.createElement("div");
+        div.textContent = day;
+
+        const key = `${year}-${month + 1}-${day}`;
+
+        // 🔴 Хэрвээ note байвал тэмдэглэнэ
+        if (localStorage.getItem(key)) {
+            div.classList.add("has-note");
+        }
+
+        div.onclick = () => openNote(year, month, day);
+        dates.appendChild(div);
+    }
+}
+
     const monthYear = document.getElementById("monthYear");
     const dates = document.getElementById("dates");
 
