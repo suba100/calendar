@@ -97,3 +97,4 @@ function changeMonth(val) {
 }
 
 renderCalendar();
+
