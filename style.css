@@ -1,99 +1,83 @@
-let current = new Date();
-let selectedKey = "";
-
-function getTasks(key) {
-    return JSON.parse(localStorage.getItem(key)) || [];
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 }
 
-function saveTasks(key, tasks) {
-    localStorage.setItem(key, JSON.stringify(tasks));
+.calendar {
+    background: #fff;
+    padding: 20px;
+    width: 360px;
+    border-radius: 10px;
 }
 
-function renderCalendar() {
-    const dates = document.getElementById("dates");
-    const monthYear = document.getElementById("monthYear");
-
-    const y = current.getFullYear();
-    const m = current.getMonth();
-
-    monthYear.textContent = `${y} оны ${m + 1}-р сар`;
-    dates.innerHTML = "";
-
-    const firstDay = new Date(y, m, 1).getDay();
-    const lastDate = new Date(y, m + 1, 0).getDate();
-
-    for (let i = 0; i < firstDay; i++) {
-        dates.innerHTML += "<div></div>";
-    }
-
-    for (let d = 1; d <= lastDate; d++) {
-        const div = document.createElement("div");
-        div.textContent = d;
-
-        const key = `${y}-${m + 1}-${d}`;
-        const tasks = getTasks(key);
-        const count = tasks.length;
-
-        if (count === 1) div.classList.add("note-1");
-        else if (count === 2) div.classList.add("note-2");
-        else if (count >= 3) div.classList.add("note-3");
-
-        div.onclick = () => openPopup(key, y, m + 1, d);
-        dates.appendChild(div);
-    }
+.days, .dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
 }
 
-function openPopup(key, y, m, d) {
-    selectedKey = key;
-    document.getElementById("popupDate").textContent =
-        `${y}-${m}-${d} хийх ажлууд`;
-
-    renderTaskList();
-    document.getElementById("popup").style.display = "flex";
+.dates div {
+    padding: 12px;
+    background: #fafafa;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
 }
 
-function renderTaskList() {
-    const list = document.getElementById("taskList");
-    list.innerHTML = "";
-
-    const tasks = getTasks(selectedKey);
-    tasks.forEach((t, i) => {
-        const li = document.createElement("li");
-        li.textContent = t;
-        li.onclick = () => removeTask(i);
-        list.appendChild(li);
-    });
+/* 🔴 ТЭМДЭГ */
+.dates div.note-1::after {
+    content: "●";
+    color: green;
+    position: absolute;
+    bottom: 4px;
+    right: 6px;
 }
 
-function addTask() {
-    const input = document.getElementById("taskInput");
-    if (!input.value.trim()) return;
-
-    const tasks = getTasks(selectedKey);
-    tasks.push(input.value.trim());
-    saveTasks(selectedKey, tasks);
-
-    input.value = "";
-    renderTaskList();
-    renderCalendar();
+.dates div.note-2::after {
+    content: "●●";
+    color: orange;
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
 }
 
-function removeTask(index) {
-    const tasks = getTasks(selectedKey);
-    tasks.splice(index, 1);
-    saveTasks(selectedKey, tasks);
-
-    renderTaskList();
-    renderCalendar();
+.dates div.note-3::after {
+    content: "●●●";
+    color: red;
+    position: absolute;
+    bottom: 4px;
+    right: 2px;
 }
 
-function closePopup() {
-    document.getElementById("popup").style.display = "none";
+/* POPUP */
+.popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
 }
 
-function changeMonth(val) {
-    current.setMonth(current.getMonth() + val);
-    renderCalendar();
+.popup-content {
+    background: #fff;
+    padding: 15px;
+    width: 300px;
+    border-radius: 8px;
 }
 
-renderCalendar();
+#taskList {
+    list-style: none;
+    padding: 0;
+}
+
+#taskList li {
+    background: #e9f2ff;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 4px;
+}
