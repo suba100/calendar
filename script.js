@@ -1,7 +1,6 @@
 let current = new Date();
 
 function renderCalendar() {
-    function renderCalendar() {
     const monthYear = document.getElementById("monthYear");
     const dates = document.getElementById("dates");
 
@@ -28,7 +27,7 @@ function renderCalendar() {
 
         const key = `${year}-${month + 1}-${day}`;
 
-        // 🔴 Хэрвээ note байвал тэмдэглэнэ
+        // ✅ Note байгаа эсэхийг шалгана
         if (localStorage.getItem(key)) {
             div.classList.add("has-note");
         }
@@ -38,33 +37,6 @@ function renderCalendar() {
     }
 }
 
-    const monthYear = document.getElementById("monthYear");
-    const dates = document.getElementById("dates");
-
-    const year = current.getFullYear();
-    const month = current.getMonth();
-
-    monthYear.textContent =
-        current.toLocaleString("default", { month: "long" }) + " " + year;
-
-    const firstDay = new Date(year, month, 1).getDay();
-    const lastDate = new Date(year, month + 1, 0).getDate();
-
-    dates.innerHTML = "";
-
-    // Blank cells
-    for (let i = 0; i < firstDay; i++) {
-        dates.innerHTML += "<div></div>";
-    }
-
-    // Dates
-    for (let day = 1; day <= lastDate; day++) {
-        const div = document.createElement("div");
-        div.textContent = day;
-        div.onclick = () => openNote(year, month, day);
-        dates.appendChild(div);
-    }
-}
 
 function changeMonth(val) {
     current.setMonth(current.getMonth() + val);
@@ -89,8 +61,16 @@ function saveNote() {
     const key = noteBox.getAttribute("data-key");
     const text = document.getElementById("noteText").value;
 
-    localStorage.setItem(key, text);
+    if (text.trim() === "") {
+        localStorage.removeItem(key); // note устгана
+    } else {
+        localStorage.setItem(key, text);
+    }
+
+    renderCalendar(); // 🔄 календар дахин зурна
     alert("Note saved!");
+}
+
 }
 
 renderCalendar();
