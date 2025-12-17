@@ -11,13 +11,21 @@ body {
     padding: 20px;
     width: 360px;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .days, .dates {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
     text-align: center;
+    gap: 5px;
+    margin-top: 10px;
 }
 
 .dates div {
