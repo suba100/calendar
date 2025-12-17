@@ -1,14 +1,9 @@
-* {
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
     background: #f4f4f4;
     display: flex;
     justify-content: center;
     padding: 20px;
-    margin: 0;
 }
 
 .calendar {
@@ -16,20 +11,8 @@ body {
     padding: 20px;
     width: 360px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.header h2 {
-    margin: 0;
-    font-size: 18px;
-}
 .days, .dates {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -37,33 +20,21 @@ body {
     text-align: center;
 }
 
-.days div {
-    font-weight: bold;
-    padding: 5px 0;
-    background: #eee;
-    border-radius: 4px;
-}
-
 .dates div {
-    padding: 12px 0;
+    padding: 12px;
     background: #fafafa;
     border-radius: 6px;
     cursor: pointer;
     position: relative;
-    min-height: 40px;
 }
 
-.dates div:hover {
-    background: #e3f0ff;
-}
-
+/* 🔴 ТЭМДЭГ */
 .dates div.note-1::after {
     content: "●";
     color: green;
     position: absolute;
     bottom: 4px;
     right: 6px;
-    font-size: 12px;
 }
 
 .dates div.note-2::after {
@@ -72,7 +43,6 @@ body {
     position: absolute;
     bottom: 4px;
     right: 4px;
-    font-size: 12px;
 }
 
 .dates div.note-3::after {
@@ -81,9 +51,9 @@ body {
     position: absolute;
     bottom: 4px;
     right: 2px;
-    font-size: 12px;
 }
 
+/* POPUP */
 .popup {
     display: none;
     position: fixed;
@@ -98,25 +68,16 @@ body {
     padding: 15px;
     width: 300px;
     border-radius: 8px;
-    position: relative;
 }
 
-.popup textarea,
-.popup input {
-    width: 100%;
-    margin-top: 8px;
+#taskList {
+    list-style: none;
+    padding: 0;
 }
 
-.popup button {
-    width: 100%;
-    margin-top: 8px;
-    padding: 6px;
-}
-
-.close {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 20px;
+#taskList li {
+    background: #e9f2ff;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 4px;
 }
