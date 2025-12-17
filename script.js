@@ -71,6 +71,5 @@ function saveNote() {
     alert("Note saved!");
 }
 
-}
 
 renderCalendar();
