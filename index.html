@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="mn">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Ээлжийн ажлын календар</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -27,8 +27,11 @@
     <div class="popup-content">
         <span class="close" onclick="closePopup()">×</span>
         <h3 id="popupDate"></h3>
-        <textarea id="popupText" placeholder="Тухайн өдөр хийх ажил..."></textarea>
-        <button onclick="saveNote()">Хадгалах</button>
+
+        <ul id="taskList"></ul>
+
+        <input type="text" id="taskInput" placeholder="Шинэ хийх ажил">
+        <button onclick="addTask()">Ажил нэмэх</button>
     </div>
 </div>
 
